@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from tkinter import messagebox
 from PIL import Image
-from hospitalQ import HospitalQueue  # Import the updated class
+from hospitalQ import HospitalQueue
 
 ctk.set_appearance_mode("light")
 ctk.set_default_color_theme("blue")
@@ -18,6 +18,7 @@ class WemaCare(ctk.CTk):
         self.setup_ui()
 
     def setup_ui(self):
+        # App Title & Icon
         ctk.CTkLabel(self, text="WemaCare Reception", font=("Arial", 20)).pack(pady=10)
 
         self.hospital_icon = ctk.CTkImage(light_image=Image.open('resources/medicine.png'),
@@ -63,6 +64,7 @@ class WemaCare(ctk.CTk):
         self.queue_frame = ctk.CTkFrame(self, width=500, height=200, corner_radius=10)
         self.queue_frame.place(x=80, y=330)
 
+    # Queue managemement functions
     def add_patient(self):
         name = self.name_entry.get()
         age = self.age_entry.get()
@@ -136,12 +138,13 @@ class WemaCare(ctk.CTk):
             messagebox.showerror("Error", f"Patient '{name}' not found.")
             self.clear_entries()
 
+    # Visual Queue 
     def update_visual_queue(self):
         # Clear the current visual queue
         for widget in self.queue_frame.winfo_children():
             widget.destroy()
 
-        # Display each patient in the queue
+        # Display each patient in the queue according to the order in the PQ
         for _, _, patient in self.patient_queue.queue:
             frame = ctk.CTkFrame(self.queue_frame, height=50, width=380, corner_radius=10)
             frame.pack(pady=5, padx=10, fill="x")
