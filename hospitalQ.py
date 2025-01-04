@@ -7,7 +7,7 @@ class HospitalQueue:
 
     def add(self, name, age):
         # Create a patient entry and insert it into the sorted queue
-        patient = (-age, self.counter, {"name": name, "age": age})
+        patient = (-age, self.counter, {"name": name, "age": age}) # -age used since sorting is in ascending order
         bisect.insort(self.queue, patient)
         self.counter += 1
 
